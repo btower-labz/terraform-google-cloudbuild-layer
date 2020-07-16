@@ -24,7 +24,7 @@ resource "google_cloudbuild_trigger" "main" {
   build {
 
     tags = [
-      "TF:${var.terraform_version}",
+      "TF-${var.terraform_version}",
       "TFLint"
     ]
 
@@ -75,6 +75,24 @@ resource "google_cloudbuild_trigger" "main" {
       }
       timeout  = "60s"
       wait_for = ["terraform-init"]
+    }
+
+    dynamic "step" {
+      for_each = var.additional_terraform_versions
+      content {
+        name = "${local.terraform_repo}:${step.value}"
+        env  = local.shared_env
+        args = ["validate", "-json", "-no-color"]
+        dynamic "volumes" {
+          for_each = local.shared_volumes
+          content {
+            name = volumes.value["name"]
+            path = volumes.value["path"]
+          }
+        }
+        timeout  = "60s"
+        wait_for = ["terraform-init"]
+      }
     }
 
     step {

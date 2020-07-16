@@ -7,7 +7,8 @@ locals {
     "AWS_PROFILE=codebuild",
     "AWS_SHARED_CREDENTIALS_FILE=/aws/credentials",
   ]
-  terraform_image = "hashicorp/terraform:${var.terraform_version}"
+  terraform_repo  = "hashicorp/terraform"
+  terraform_image = "${local.terraform_repo}:${var.terraform_version}"
 
   shared_volumes = [
     {

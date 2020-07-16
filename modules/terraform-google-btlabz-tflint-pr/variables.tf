@@ -51,3 +51,9 @@ variable "comment_control" {
   description = "Comment control option"
   default     = ""
 }
+
+variable "additional_terraform_versions" {
+  type        = list
+  description = "Additional terraform versions to test with"
+  default     = ["latest"]
+}
