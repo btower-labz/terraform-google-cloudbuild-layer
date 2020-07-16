@@ -1,6 +1,6 @@
 locals {
   name        = var.name == "" ? "lint-pr-${random_id.name.hex}" : var.name
-  description = var.description == "" ? "Lint-PR: ${var.repo_owner}/${var.repo_name}" : var.description
+  description = var.description == "" ? "TFLint-PR: ${var.repo_owner}/${var.repo_name} (TF: ${var.terraform_version})" : var.description
   shared_env = [
     "AWS_REGION=us-east-1",
     "AWS_CONFIG_FILE=/aws/config",

@@ -18,7 +18,7 @@ variable "description" {
 variable "terraform_version" {
   type        = string
   description = "Version of terraform for linting"
-  default     = "0.12.28"
+  default     = "latest"
 }
 
 variable "ignored_files" {

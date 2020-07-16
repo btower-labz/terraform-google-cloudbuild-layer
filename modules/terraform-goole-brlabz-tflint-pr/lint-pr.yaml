@@ -14,6 +14,18 @@ options:
 
 steps:
 
+  - id: check-001
+    name: bash
+    args:
+      - env
+    timeout: 60s
+
+  - id: check-002
+    name: bash
+    args:
+      - ls -la
+    timeout: 60s
+
   - id: terraform-version
     name: hashicorp/terraform:0.12.28
     args:
