@@ -7,7 +7,7 @@ resource "google_cloudbuild_trigger" "lint_pr_trigger" {
 
   ignored_files = [
     "**/*.md",
-    "LICENSE"
+    "**/LICENSE"
   ]
 
   github {
@@ -15,6 +15,7 @@ resource "google_cloudbuild_trigger" "lint_pr_trigger" {
     name  = "terraform-aws-btlabz-pri-sn"
     pull_request {
       branch = "master"
+      comment_control = "COMMENTS_DISABLED"
     }
   }
 
@@ -28,8 +29,21 @@ resource "google_cloudbuild_trigger" "lint_pr_trigger" {
     _BAZ = "qux"
   }
 
-  filename = ".cloudbuid/lint-pr.yaml"
+  # filename = ".cloudbuid/lint-pr.yaml"
 
-  #timeout = "600s"
+  build {
+
+    step {
+
+      name = "bash"
+      args = ["id"]
+      timeout = "30s"
+
+    }
+
+    timeout = "600s"
+
+  }
+
 
 }
