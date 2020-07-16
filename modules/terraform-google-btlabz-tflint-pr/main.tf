@@ -24,8 +24,8 @@ resource "google_cloudbuild_trigger" "main" {
   build {
 
     tags = [
-      "FOO",
-      "BAR"
+      "TF:${var.terraform_version}",
+      "TFLint"
     ]
 
     timeout = "600s"
