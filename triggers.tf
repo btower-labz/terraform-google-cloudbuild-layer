@@ -1,4 +1,5 @@
 resource "google_cloudbuild_trigger" "lint_pr_trigger" {
+  provider = google-beta
   project     = data.google_project.project.project_id
   name        = "lint-pr-001"
   description = "lint-pr-001"
@@ -9,19 +10,18 @@ resource "google_cloudbuild_trigger" "lint_pr_trigger" {
     "LICENSE"
   ]
 
-  #github {
-  #  owner = "btower-labz"
-  #  name  = "terraform-aws-btlabz-pri-sn"
-  #  pull_request {
-  #    branch = "master"
-  #  }
-#
-#  }
-
-  trigger_template {
-    branch_name = "master"
-    repo_name   = "terraform-aws-btlabz-pri-sn"
+  github {
+    owner = "btower-labz"
+    name  = "terraform-aws-btlabz-pri-sn"
+    pull_request {
+      branch = "master"
+    }
   }
+
+  #trigger_template {
+  #  branch_name = "master"
+  #  repo_name   = "terraform-aws-btlabz-pri-sn"
+  #}
 
   substitutions = {
     _FOO = "bar"
