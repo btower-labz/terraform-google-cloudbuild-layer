@@ -22,6 +22,7 @@ module "terratest_pr_pri_sn" {
   terraform_version = "0.12.28"
   terratest_regions = [
     "us-east-1",
-    "eu-west-2"
+    "eu-west-2",
+    "ap-south-1"
   ]
 }
