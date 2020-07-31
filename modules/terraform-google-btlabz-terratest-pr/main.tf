@@ -187,7 +187,7 @@ resource "google_cloudbuild_trigger" "main" {
           path = volumes.value["path"]
         }
       }
-      timeout  = "600s"
+      timeout  = "60s"
       wait_for = ["terratest-go-test-${element(var.terratest_regions,0)}"]
     }
 
