@@ -15,8 +15,8 @@ resource "google_cloudbuild_trigger" "main" {
     dynamic "pull_request" {
       for_each = local.pr_workflow
       content {
-        branch = pull_request.value["branch"]
-        invert_regex = pull_request.value["invert_regex"]
+        branch          = pull_request.value["branch"]
+        invert_regex    = pull_request.value["invert_regex"]
         comment_control = pull_request.value["comment_control"]
       }
     }
@@ -25,7 +25,7 @@ resource "google_cloudbuild_trigger" "main" {
     dynamic "push" {
       for_each = local.branch_workflow
       content {
-        branch = push.value["branch"]
+        branch       = push.value["branch"]
         invert_regex = push.value["invert_regex"]
       }
     }
@@ -34,7 +34,7 @@ resource "google_cloudbuild_trigger" "main" {
     dynamic "push" {
       for_each = local.tag_workflow
       content {
-        tag = push.value["tag"]
+        tag          = push.value["tag"]
         invert_regex = push.value["invert_regex"]
       }
     }

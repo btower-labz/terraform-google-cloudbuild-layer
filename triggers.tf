@@ -12,7 +12,7 @@ module "lint_branch_pri_sn" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pri-sn"
   terraform_version = "0.12.28"
-  workflow_type          = "BRANCH"
+  workflow_type     = "BRANCH"
 }
 
 module "conftest_pr_pri_sn" {
@@ -29,7 +29,7 @@ module "conftest_branch_pri_sn" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pri-sn"
   terraform_version = "0.12.28"
-  workflow_type          = "BRANCH"
+  workflow_type     = "BRANCH"
 }
 
 module "terratest_pr_pri_sn" {
