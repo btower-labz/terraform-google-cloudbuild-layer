@@ -22,8 +22,8 @@ locals {
   ]
 
   terraform_image = "${var.terraform_repo}:${var.terraform_version}"
-  berglas_image = "${var.berglas_repo}:${var.berglas_version}"
-  awscli_image = "${var.awscli_repo}:${var.awscli_version}"
+  berglas_image   = "${var.berglas_repo}:${var.berglas_version}"
+  awscli_image    = "${var.awscli_repo}:${var.awscli_version}"
   terratest_image = "${var.terratest_repo}:${var.terratest_version}"
 
   gcp_secret_path = "${data.google_project.project.project_id}/${var.gcp_secret_name}"

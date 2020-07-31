@@ -28,15 +28,15 @@ resource "google_cloudbuild_trigger" "main" {
       "TerraTest"
     ]
 
-    timeout = "1200s"
+    timeout = "${local.build_timeout}s"
 
     // Store AWS credentials in the file
     step {
-      id   = "aws-credentials"
-      name = local.berglas_image
-      env = local.shared_env
+      id         = "aws-credentials"
+      name       = local.berglas_image
+      env        = local.shared_env
       entrypoint = "/bin/sh"
-      args = [ "-e", "-c", "berglas access sm://${local.gcp_secret_path}>/aws/credentials.json" ]
+      args       = ["-e", "-c", "berglas access sm://${local.gcp_secret_path}>/aws/credentials.json"]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -45,16 +45,16 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       wait_for = ["-"]
-      timeout = "60s"
+      timeout  = "${local.default_timeout}s"
     }
 
     // Set default AWS region
     step {
       id   = "aws-configure"
       name = local.awscli_image
-      env = local.shared_env
+      env  = local.shared_env
       // TODO: #2 Double demasking TF->GCP
-      args = [ "configure", "set", "region", "$$${AWS_REGION}" ]
+      args = ["configure", "set", "region", "$$${AWS_REGION}"]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -63,15 +63,15 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       wait_for = ["-"]
-      timeout = "60s"
+      timeout  = "${local.default_timeout}s"
     }
 
     // Configure credentials retreival options
     step {
       id   = "aws-process"
       name = local.awscli_image
-      env = local.shared_env
-      args = [ "configure", "set", "credential_process", "/bin/cat /aws/credentials.json" ]
+      env  = local.shared_env
+      args = ["configure", "set", "credential_process", "/bin/cat /aws/credentials.json"]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -80,15 +80,15 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       wait_for = ["aws-configure"]
-      timeout = "60s"
+      timeout  = "${local.default_timeout}s"
     }
 
     // Validate credentials
     step {
       id   = "aws-who"
       name = local.awscli_image
-      env = local.shared_env
-      args = [ "sts", "get-caller-identity" ]
+      env  = local.shared_env
+      args = ["sts", "get-caller-identity"]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -97,8 +97,8 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       wait_for = ["aws-process", "aws-credentials"]
-      timeout = "60s"
-    }    
+      timeout  = "${local.default_timeout}s"
+    }
 
     // Check terraform presense and version
     step {
@@ -113,7 +113,7 @@ resource "google_cloudbuild_trigger" "main" {
           path = volumes.value["path"]
         }
       }
-      timeout = "60s"
+      timeout  = "${local.default_timeout}s"
       wait_for = ["-"]
     }
 
@@ -130,7 +130,7 @@ resource "google_cloudbuild_trigger" "main" {
           path = volumes.value["path"]
         }
       }
-      timeout  = "60s"
+      timeout  = "${local.default_timeout}s"
       wait_for = ["-"]
     }
 
@@ -147,48 +147,54 @@ resource "google_cloudbuild_trigger" "main" {
           path = volumes.value["path"]
         }
       }
-      timeout  = "60s"
+      timeout  = "${local.default_timeout}s"
       wait_for = ["terraform-init"]
     }
 
-    step {
-      id   = "terratest-go-test-${element(var.terratest_regions,0)}"
-      name = local.terratest_image
-      env  = concat(local.shared_env, list(
-        "GOMAXPROCS=${var.golang_max_proc}",
-        "GO111MODULE=on",
-        "TERRATEST_REGION=${element(var.terratest_regions,0)}",
-      ))
-      dir = ".terratest"
-      entrypoint = "/bin/bash"
-      args = [ "-e", "-o","pipefail", "-c", "go test -v -timeout 30m -count=${var.golang_max_proc} 2>&1 | tee /.terratest/test-report-${element(var.terratest_regions,0)}.log" ]
-      dynamic "volumes" {
-        for_each = local.shared_volumes
-        content {
-          name = volumes.value["name"]
-          path = volumes.value["path"]
+    dynamic "step" {
+      for_each = var.terratest_regions
+      content {
+        id   = "terratest-go-test-${step.value}"
+        name = local.terratest_image
+        env = concat(local.shared_env, list(
+          "GOMAXPROCS=${var.golang_max_proc}",
+          "GO111MODULE=on",
+          "TERRATEST_REGION=${step.value}",
+        ))
+        dir        = ".terratest"
+        entrypoint = "/bin/bash"
+        args       = ["-e", "-o", "pipefail", "-c", "go test -v -timeout 30m -count=${var.golang_max_proc} 2>&1 | tee /.terratest/test-report-${step.value}.log"]
+        dynamic "volumes" {
+          for_each = local.shared_volumes
+          content {
+            name = volumes.value["name"]
+            path = volumes.value["path"]
+          }
         }
+        timeout  = "${var.terraform_timeout}s"
+        wait_for = ["terraform-validate"]
       }
-      timeout  = "600s"
-      wait_for = ["terraform-validate"]
     }
 
-    step {
-      id   = "terratest-log-parser-process-${element(var.terratest_regions,0)}"
-      name = local.terratest_image
-      env  = local.shared_env
-      dir = "/.terratest"
-      entrypoint = "/bin/bash"
-      args = [ "-e", "-o","pipefail", "-c", "terratest_log_parser -testlog test-report-${element(var.terratest_regions,0)}.log -outputdir ${element(var.terratest_regions,0)}" ]
-      dynamic "volumes" {
-        for_each = local.shared_volumes
-        content {
-          name = volumes.value["name"]
-          path = volumes.value["path"]
+    dynamic "step" {
+      for_each = var.terratest_regions
+      content {
+        id         = "terratest-log-parser-process-${step.value}"
+        name       = local.terratest_image
+        env        = local.shared_env
+        dir        = "/.terratest"
+        entrypoint = "/bin/bash"
+        args       = ["-e", "-o", "pipefail", "-c", "terratest_log_parser -testlog test-report-${step.value}.log -outputdir ${step.value}"]
+        dynamic "volumes" {
+          for_each = local.shared_volumes
+          content {
+            name = volumes.value["name"]
+            path = volumes.value["path"]
+          }
         }
+        timeout  = "${local.default_timeout}s"
+        wait_for = ["terratest-go-test-${step.value}"]
       }
-      timeout  = "60s"
-      wait_for = ["terratest-go-test-${element(var.terratest_regions,0)}"]
     }
 
     /*
