@@ -10,11 +10,35 @@ resource "google_cloudbuild_trigger" "main" {
   github {
     owner = var.repo_owner
     name  = var.repo_name
-    pull_request {
-      branch = var.repo_branch
-      # TODO: #4 Review comment control options
-      comment_control = var.comment_control
+
+    // GITHub Pull Request workflow
+    dynamic "pull_request" {
+      for_each = local.pr_workflow
+      content {
+        branch = pull_request.value["branch"]
+        invert_regex = pull_request.value["invert_regex"]
+        comment_control = pull_request.value["comment_control"]
+      }
     }
+
+    // GITHub Branch workflow
+    dynamic "push" {
+      for_each = local.branch_workflow
+      content {
+        branch = pull_request.value["branch"]
+        invert_regex = pull_request.value["invert_regex"]
+      }
+    }
+
+    // GITHub Tag workflow
+    dynamic "push" {
+      for_each = local.tag_workflow
+      content {
+        tag = pull_request.value["tag"]
+        invert_regex = pull_request.value["invert_regex"]
+      }
+    }
+
   }
 
   /*

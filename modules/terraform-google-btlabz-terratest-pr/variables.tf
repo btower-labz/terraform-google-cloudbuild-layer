@@ -91,14 +91,30 @@ variable "repo_name" {
 
 variable "repo_branch" {
   type        = string
-  description = "PR target branch"
+  description = "Branch/Tag to trigger workflow in"
   default     = "master"
 }
 
 variable "comment_control" {
   type        = string
-  description = "Comment control option"
+  description = "Comment control option for PR workflow"
   default     = ""
+}
+
+variable "invert_regex" {
+  type        = bool
+  description = "Revert branch/tag match"
+  default     = false
+}
+
+variable "workflow_type" {
+  type = string
+  description = "Workflow type: PR, BRANCH, TAG"
+  default = "PR"
+  validation {
+    condition     = length(regexall("^PR|BRANCH|TAG$",var.workflow_type)) > 0
+    error_message = "Workflow type should be PR, BRANCH or TAG."
+  }
 }
 
 variable "additional_terraform_versions" {
