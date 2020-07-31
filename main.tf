@@ -50,6 +50,7 @@ module "workflow_vpc_base" {
   ]
 }
 
+/*
 module "workflow_vpc_pub2x_pri2x_dbs2x_no_nat" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
@@ -61,7 +62,9 @@ module "workflow_vpc_pub2x_pri2x_dbs2x_no_nat" {
     "lint_branch",
   ]
 }
+*/
 
+/*
 module "workflow_vpc_pub3x_pri3x_dbs3x_no_nat" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
@@ -73,6 +76,8 @@ module "workflow_vpc_pub3x_pri3x_dbs3x_no_nat" {
     "lint_branch",
   ]
 }
+*/
+
 
 module "workflow_vpc_ha_2x" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
@@ -85,6 +90,7 @@ module "workflow_vpc_ha_2x" {
     "lint_branch",
   ]
 }
+
 
 module "workflow_vpc_ha_3x" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
