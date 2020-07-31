@@ -28,7 +28,7 @@ resource "google_cloudbuild_trigger" "main" {
       "TerraTest"
     ]
 
-    timeout = "900s"
+    timeout = "1200s"
 
     // Store AWS credentials in the file
     step {
