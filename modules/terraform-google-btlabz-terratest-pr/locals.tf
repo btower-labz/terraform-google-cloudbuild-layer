@@ -6,7 +6,7 @@ locals {
     // AWS Configuration
     "AWS_REGION=us-east-1",
     "AWS_CONFIG_FILE=/aws/config",
-    "AWS_PROFILE=codebuild",
+    //"AWS_PROFILE=codebuild",
     "AWS_SHARED_CREDENTIALS_FILE=/aws/credentials",
     "AWS_SDK_LOAD_CONFIG=1",
 
