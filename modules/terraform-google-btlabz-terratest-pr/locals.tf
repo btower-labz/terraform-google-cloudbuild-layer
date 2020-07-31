@@ -38,7 +38,7 @@ locals {
       path = "/.terraform"
     },
     {
-      name = "aws"
+      name = "terratest"
       path = "/.terratest"
     }
   ]

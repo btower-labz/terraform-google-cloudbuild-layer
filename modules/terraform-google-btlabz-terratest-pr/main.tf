@@ -37,7 +37,8 @@ resource "google_cloudbuild_trigger" "main" {
       env = concat(local.shared_env, list(
         "_GCP_CREDENTIALS_SECRET=${local.gcp_secret_path}"
       ))
-      args = [ "-c", "berglas access sm://$${_GCP_CREDENTIALS_SECRET}>/aws/credentials.json" ]
+      // TODO: #1 Double demasking
+      args = [ "-c", "berglas access sm://$$${_GCP_CREDENTIALS_SECRET}>/aws/credentials.json" ]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -54,7 +55,8 @@ resource "google_cloudbuild_trigger" "main" {
       id   = "aws-configure"
       name = local.awscli_image
       env = local.shared_env
-      args = [ "configure", "set", "region", "$${AWS_REGION}" ]
+      // TODO: #2 Double demasking TF->GCP
+      args = [ "configure", "set", "region", "$$${AWS_REGION}" ]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
