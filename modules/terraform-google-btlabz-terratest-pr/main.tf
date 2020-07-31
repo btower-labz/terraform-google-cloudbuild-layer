@@ -152,7 +152,7 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
-      id   = "terratest-go-test-us-east-1"
+      id   = "terratest-go-test-${element(var.terratest_regions,0)}"
       name = local.terratest_image
       env  = concat(local.shared_env, list(
         "GOMAXPROCS=${var.golang_max_proc}",
@@ -173,14 +173,23 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["terraform-validate"]
     }
 
-    /*
-  - id: terratest-log-parser-process-us-east-1
-    name: btowerlabz/docker-cloudbuild-terratest:latest
-    entrypoint: /bin/bash
-    args: [ '-e', '-c', 'terratest_log_parser -testlog /.terratest/test-report-us-east-1.log -outputdir /.terratest/us-east-1' ]
-    waitFor: [ 'terratest-go-test-us-east-1' ]
-    timeout: 120s
-    */
+    step {
+      id   = "terratest-log-parser-process-${element(var.terratest_regions,0)}"
+      name = local.terratest_image
+      env  = local.shared_env
+      dir = "/.terratest"
+      entrypoint = "/bin/bash"
+      args = [ "-e", "-o","pipefail", "-c", "terratest_log_parser -testlog test-report-${element(var.terratest_regions,0)}.log -outputdir ${element(var.terratest_regions,0)}" ]
+      dynamic "volumes" {
+        for_each = local.shared_volumes
+        content {
+          name = volumes.value["name"]
+          path = volumes.value["path"]
+        }
+      }
+      timeout  = "600s"
+      wait_for = ["terratest-go-test-${element(var.terratest_regions,0)}"]
+    }
 
     /*
   - id: terratest-log-parser-test-us-east-1
