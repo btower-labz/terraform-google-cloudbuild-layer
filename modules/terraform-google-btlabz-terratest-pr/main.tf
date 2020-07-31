@@ -114,6 +114,7 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       timeout = "60s"
+      wait_for = ["-"]
     }
 
     // Initialize module
