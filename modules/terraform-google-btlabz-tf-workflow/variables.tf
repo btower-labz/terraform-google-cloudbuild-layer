@@ -28,3 +28,9 @@ variable "terratest_regions" {
     error_message = "At least one region should be specified."
   }
 }
+
+variable "workflows" {
+  type = list
+  description = "Workflows to create"
+  default = []
+}

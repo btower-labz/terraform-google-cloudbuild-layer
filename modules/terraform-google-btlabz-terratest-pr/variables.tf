@@ -152,3 +152,9 @@ variable "terratest_timeout" {
     error_message = "Terraform timeout should be positive value, more than 60 seconds."
   }
 }
+
+variable "disabled" {
+  type        = bool
+  description = "Disable the trigger"
+  default     = false
+}

@@ -3,7 +3,7 @@ resource "google_cloudbuild_trigger" "main" {
   project     = data.google_project.project.project_id
   name        = local.name
   description = local.description
-  disabled    = false
+  disabled    = var.disabled
 
   ignored_files = var.ignored_files
 

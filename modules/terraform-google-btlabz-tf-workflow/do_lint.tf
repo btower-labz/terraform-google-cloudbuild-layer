@@ -1,5 +1,6 @@
 module "lint_pull_request" {
   source            = "../terraform-google-btlabz-tflint-pr"
+  disabled  = !contains(var.workflows, "lint_pull_request") 
   project           = data.google_project.project.project_id
   repo_owner        = var.repo_owner
   repo_name         = var.repo_name
@@ -8,6 +9,7 @@ module "lint_pull_request" {
 
 module "lint_branch" {
   source            = "../terraform-google-btlabz-tflint-pr"
+  disabled  = contains(var.workflows, "lint_branch") 
   project           = data.google_project.project.project_id
   repo_owner        = var.repo_owner
   repo_name         = var.repo_name

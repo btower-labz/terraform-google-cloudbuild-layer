@@ -73,3 +73,9 @@ variable "additional_terraform_versions" {
   description = "Additional terraform versions to test with"
   default     = ["latest"]
 }
+
+variable "disabled" {
+  type        = bool
+  description = "Disable the trigger"
+  default     = false
+}

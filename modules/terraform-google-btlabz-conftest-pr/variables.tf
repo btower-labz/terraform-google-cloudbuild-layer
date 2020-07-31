@@ -67,3 +67,9 @@ variable "workflow_type" {
     error_message = "Workflow type should be PR, BRANCH or TAG."
   }
 }
+
+variable "disabled" {
+  type        = bool
+  description = "Disable the trigger"
+  default     = false
+}
