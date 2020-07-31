@@ -25,8 +25,8 @@ resource "google_cloudbuild_trigger" "main" {
     dynamic "push" {
       for_each = local.branch_workflow
       content {
-        branch = pull_request.value["branch"]
-        invert_regex = pull_request.value["invert_regex"]
+        branch = push.value["branch"]
+        invert_regex = push.value["invert_regex"]
       }
     }
 
@@ -34,8 +34,8 @@ resource "google_cloudbuild_trigger" "main" {
     dynamic "push" {
       for_each = local.tag_workflow
       content {
-        tag = pull_request.value["tag"]
-        invert_regex = pull_request.value["invert_regex"]
+        tag = push.value["tag"]
+        invert_regex = push.value["invert_regex"]
       }
     }
 
