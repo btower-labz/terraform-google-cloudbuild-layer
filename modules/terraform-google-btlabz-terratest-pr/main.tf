@@ -34,11 +34,9 @@ resource "google_cloudbuild_trigger" "main" {
     step {
       id   = "aws-credentials"
       name = local.berglas_image
-      env = concat(local.shared_env, list(
-        "_GCP_CREDENTIALS_SECRET=${local.gcp_secret_path}"
-      ))
-      // TODO: #1 Double demasking
-      args = [ "-c", "berglas access sm://$$${_GCP_CREDENTIALS_SECRET}>/aws/credentials.json" ]
+      env = local.shared_env
+      entrypoint = "/bin/sh"
+      args = [ "-e", "-c", "berglas access sm://${local.gcp_secret_path}>/aws/credentials.json" ]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
