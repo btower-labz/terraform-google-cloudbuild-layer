@@ -11,15 +11,18 @@ resource "google_cloudbuild_trigger" "main" {
     owner = var.repo_owner
     name  = var.repo_name
     pull_request {
-      branch          = var.repo_branch
+      branch = var.repo_branch
+      # TODO: #4 Review comment control options
       comment_control = var.comment_control
     }
   }
 
+  /*
   substitutions = {
     _FOO = "bar"
     _BAZ = "qux"
   }
+  */
 
   build {
 
@@ -196,37 +199,5 @@ resource "google_cloudbuild_trigger" "main" {
         wait_for = ["terratest-go-test-${step.value}"]
       }
     }
-
-    /*
-  - id: terratest-log-parser-test-us-east-1
-    name: btowerlabz/docker-cloudbuild-terratest:latest
-    entrypoint: /bin/bash
-    args: [ '-e', '-o', 'pipefail', '-c', 'ls -la /.terratest || cat /.terratest/us-east-1/summary.log']
-    waitFor: [ 'terratest-log-parser-process-us-east-1' ]
-    timeout: 60s
-    */
-
-
-    /*
-    dynamic "step" {
-      for_each = var.additional_terraform_versions
-      content {
-        name = "${local.terraform_repo}:${step.value}"
-        env  = local.shared_env
-        args = ["validate", "-json", "-no-color"]
-        dynamic "volumes" {
-          for_each = local.shared_volumes
-          content {
-            name = volumes.value["name"]
-            path = volumes.value["path"]
-          }
-        }
-        timeout  = "60s"
-        wait_for = ["terraform-init"]
-      }
-    }
-    */
-
   }
-
 }

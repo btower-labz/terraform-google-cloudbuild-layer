@@ -11,7 +11,8 @@ resource "google_cloudbuild_trigger" "main" {
     owner = var.repo_owner
     name  = var.repo_name
     pull_request {
-      branch          = var.repo_branch
+      branch = var.repo_branch
+      # TODO: #5 Review comment control options
       comment_control = var.comment_control
     }
   }
