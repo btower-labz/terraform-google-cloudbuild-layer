@@ -90,7 +90,9 @@ resource "google_cloudbuild_trigger" "main" {
       id   = "terraform-validate"
       name = local.terraform_image
       env  = local.shared_env
-      args = ["validate", "-json", "-no-color"]
+      # TODO: -json is not supported in older versions
+      # args = ["validate", "-json", "-no-color"]
+      args = ["validate", "-no-color"]
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
