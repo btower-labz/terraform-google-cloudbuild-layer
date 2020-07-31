@@ -22,7 +22,7 @@ variable "terraform_version" {
 variable "terratest_regions" {
   type        = list
   description = "Regions to test with terratest"
-  default       = ["us-east-1"]
+  default     = ["us-east-1"]
   validation {
     condition     = length(var.terratest_regions) > 0
     error_message = "At least one region should be specified."
@@ -30,7 +30,7 @@ variable "terratest_regions" {
 }
 
 variable "workflows" {
-  type = list
+  type        = list
   description = "Workflows to create"
-  default = []
+  default     = []
 }

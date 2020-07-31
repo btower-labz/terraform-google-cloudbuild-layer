@@ -7,3 +7,4 @@
 - Apply
 - Connect repositories
 - aws-terratest-credentials (external source)
+- grant access to secrets for cloud build
