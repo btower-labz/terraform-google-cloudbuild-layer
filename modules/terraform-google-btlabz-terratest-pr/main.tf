@@ -171,7 +171,7 @@ resource "google_cloudbuild_trigger" "main" {
             path = volumes.value["path"]
           }
         }
-        timeout  = "${var.terraform_timeout}s"
+        timeout  = "${var.terratest_timeout}s"
         wait_for = ["terraform-validate"]
       }
     }
