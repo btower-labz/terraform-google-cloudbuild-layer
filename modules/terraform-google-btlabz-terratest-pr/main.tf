@@ -151,6 +151,47 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["terraform-init"]
     }
 
+    step {
+      id   = "terratest-go-test-us-east-1"
+      name = local.terratest_image
+      env  = concat(local.shared_env, list(
+        "GOMAXPROCS=${var.golang_max_proc}",
+        "GO111MODULE=on",
+        "TERRATEST_REGION=${element(var.terratest_regions,0)}",
+      ))
+      dir = ".terratest"
+      entrypoint = "/bin/bash"
+      args = [ "-e", "-o","pipefail", "-c", "go test -v -timeout 30m -count=${var.golang_max_proc} 2>&1 | tee /.terratest/test-report-${element(var.terratest_regions,0)}.log" ]
+      dynamic "volumes" {
+        for_each = local.shared_volumes
+        content {
+          name = volumes.value["name"]
+          path = volumes.value["path"]
+        }
+      }
+      timeout  = "600s"
+      wait_for = ["terraform-validate"]
+    }
+
+    /*
+  - id: terratest-log-parser-process-us-east-1
+    name: btowerlabz/docker-cloudbuild-terratest:latest
+    entrypoint: /bin/bash
+    args: [ '-e', '-c', 'terratest_log_parser -testlog /.terratest/test-report-us-east-1.log -outputdir /.terratest/us-east-1' ]
+    waitFor: [ 'terratest-go-test-us-east-1' ]
+    timeout: 120s
+    */
+
+    /*
+  - id: terratest-log-parser-test-us-east-1
+    name: btowerlabz/docker-cloudbuild-terratest:latest
+    entrypoint: /bin/bash
+    args: [ '-e', '-o', 'pipefail', '-c', 'ls -la /.terratest || cat /.terratest/us-east-1/summary.log']
+    waitFor: [ 'terratest-log-parser-process-us-east-1' ]
+    timeout: 60s
+    */
+
+
     /*
     dynamic "step" {
       for_each = var.additional_terraform_versions

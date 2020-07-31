@@ -106,3 +106,23 @@ variable "additional_terraform_versions" {
   description = "Additional terraform versions to test with"
   default     = ["latest"]
 }
+
+variable "golang_max_proc" {
+  type = number
+  description = "Golang concurrency for TerraTest"
+  default = 1
+  validation {
+    condition = var.golang_max_proc>0
+    error_message = "Golang concurrency should be positive integer."
+  }
+}
+
+variable "terratest_regions" {
+  type = list
+  description = "AWS Regions to TerraTest"
+  default = ["us-east-1"]
+  validation {
+    condition = length(var.terratest_regions)>0
+    error_message = "At least one region should be specified."
+  }
+}
