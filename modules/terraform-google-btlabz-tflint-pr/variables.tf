@@ -71,7 +71,7 @@ variable "workflow_type" {
 variable "additional_terraform_versions" {
   type        = list
   description = "Additional terraform versions to test with"
-  default     = [""]
+  default     = []
 }
 
 variable "disabled" {
