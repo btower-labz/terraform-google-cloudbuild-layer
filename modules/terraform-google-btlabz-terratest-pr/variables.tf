@@ -77,7 +77,8 @@ variable "ignored_files" {
     "**/*.md",
     "**/LICENSE",
     "**/.deepsource.toml",
-    "**/.gitignore"
+    "**/.gitignore",
+    "**/*.rego"
   ]
 }
 
