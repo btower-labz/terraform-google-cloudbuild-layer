@@ -75,7 +75,9 @@ variable "ignored_files" {
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",
-    "**/LICENSE"
+    "**/LICENSE",
+    "**/.deepsource.toml",
+    "**/.gitignore"
   ]
 }
 
