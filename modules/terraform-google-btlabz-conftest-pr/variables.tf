@@ -40,9 +40,9 @@ variable "repo_name" {
   description = "GitHUB repositoryname"
 }
 
-variable "repo_branch" {
+variable "repo_reference" {
   type        = string
-  description = "PR target branch"
+  description = "Branch/tag reference"
   default     = "master"
 }
 

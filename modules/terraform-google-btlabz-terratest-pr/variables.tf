@@ -5,13 +5,13 @@ variable "project" {
 
 variable "name" {
   type        = string
-  description = "Build tribber name"
+  description = "Build trigger name"
   default     = ""
 }
 
 variable "description" {
   type        = string
-  description = "Build tribber name"
+  description = "Build trigger description"
   default     = ""
 }
 
@@ -89,9 +89,9 @@ variable "repo_name" {
   description = "GitHUB repositoryname"
 }
 
-variable "repo_branch" {
+variable "repo_reference" {
   type        = string
-  description = "Branch/Tag to trigger workflow in"
+  description = "Branch/tag reference for workflow triggering"
   default     = "master"
 }
 

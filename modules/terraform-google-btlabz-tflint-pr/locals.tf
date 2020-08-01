@@ -20,7 +20,7 @@ locals {
   terraform_validate_args = [
     "validate",
     "-no-color",
-    length(regexall("^0[[:punct:]]11[[:punct:]].+$",var.terraform_version))>0 ? "-check-variables=false" : "" 
+    length(regexall("^0[[:punct:]]11[[:punct:]].+$", var.terraform_version)) > 0 ? "-check-variables=false" : ""
   ]
 
 }
