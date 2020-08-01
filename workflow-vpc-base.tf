@@ -1,8 +1,8 @@
-module "workflow_pub_sn_dev" {
+module "workflow_vpc_base_dev" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
-  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_name         = "terraform-aws-btlabz-vpc-base"
   repo_reference    = "master"
   terraform_version = "latest"
   workflows = [
@@ -15,11 +15,11 @@ module "workflow_pub_sn_dev" {
   ]
 }
 
-module "workflow_pub_sn_12" {
+module "workflow_vpc_base_12" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
-  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_name         = "terraform-aws-btlabz-vpc-base"
   repo_reference    = "release/terraform-12"
   terraform_version = "0.12.29"
   workflows = [
@@ -32,11 +32,11 @@ module "workflow_pub_sn_12" {
   ]
 }
 
-module "workflow_pub_sn_11" {
+module "workflow_vpc_base_11" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
-  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_name         = "terraform-aws-btlabz-vpc-base"
   repo_reference    = "release/terraform-11"
   terraform_version = "0.11.14"
   workflows = [
