@@ -95,7 +95,7 @@ resource "google_cloudbuild_trigger" "main" {
       env  = local.shared_env
       # TODO: #1 -json is not supported in older versions
       # args = ["validate", "-json", "-no-color"]
-      args = ["validate", "-no-color", length(regexall("^0[[:punct:]]11[[:punct:]].+$",var.terraform_version))>0 ? "-check-variables=false" : "" ]
+      args = local.terraform_validate_args
       dynamic "volumes" {
         for_each = local.shared_volumes
         content {
@@ -114,7 +114,7 @@ resource "google_cloudbuild_trigger" "main" {
         env  = local.shared_env
         # TODO: #1 -json is not supported in older versions
         # args = ["validate", "-json", "-no-color"]
-        args = ["validate", "-no-color", length(regexall("^0[[:punct:]]11[[:punct:]].+$",var.terraform_version))>0 ? "-check-variables=false" : "" ]
+        args = local.terraform_validate_args
         dynamic "volumes" {
           for_each = local.shared_volumes
           content {
