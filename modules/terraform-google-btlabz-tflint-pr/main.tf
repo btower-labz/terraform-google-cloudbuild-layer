@@ -41,10 +41,13 @@ resource "google_cloudbuild_trigger" "main" {
 
   }
 
+  # TODO: #7 Make use of substitutions to produce better yaml
+  /*
   substitutions = {
     _FOO = "bar"
     _BAZ = "qux"
   }
+  */
 
   build {
 
@@ -90,7 +93,7 @@ resource "google_cloudbuild_trigger" "main" {
       id   = "terraform-validate"
       name = local.terraform_image
       env  = local.shared_env
-      # TODO: -json is not supported in older versions
+      # TODO: #1 -json is not supported in older versions
       # args = ["validate", "-json", "-no-color"]
       args = ["validate", "-no-color"]
       dynamic "volumes" {
@@ -109,7 +112,9 @@ resource "google_cloudbuild_trigger" "main" {
       content {
         name = "${local.terraform_repo}:${step.value}"
         env  = local.shared_env
-        args = ["validate", "-json", "-no-color"]
+        # TODO: #1 -json is not supported in older versions
+        # args = ["validate", "-json", "-no-color"]
+        args = ["validate", "-no-color"]
         dynamic "volumes" {
           for_each = local.shared_volumes
           content {
@@ -137,8 +142,5 @@ resource "google_cloudbuild_trigger" "main" {
       wait_for = ["terraform-init"]
       timeout  = "60s"
     }
-
-
   }
-
 }
