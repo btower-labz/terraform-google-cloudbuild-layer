@@ -10,7 +10,7 @@ variable "repo_owner" {
 
 variable "repo_name" {
   type        = string
-  description = "GitHUB repositoryname"
+  description = "GitHUB repository name"
 }
 
 variable "terraform_version" {
