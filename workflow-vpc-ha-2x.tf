@@ -5,6 +5,7 @@ module "workflow_vpc_ha_2x_dev" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "master"
   terraform_version = "latest"
+  terratest_version = "latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -22,6 +23,7 @@ module "workflow_vpc_ha_2x_1_0_x" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-1.0.x"
   terraform_version = local.tf_latest_minors["1.0"]
+  terratest_version = "tf-1.0.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -39,6 +41,7 @@ module "workflow_vpc_ha_2x_15" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-15"
   terraform_version = local.tf_latest_minors["0.15"]
+  terratest_version = "tf-0.15.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -56,6 +59,7 @@ module "workflow_vpc_ha_2x_14" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-14"
   terraform_version = local.tf_latest_minors["0.14"]
+  terratest_version = "tf-0.14.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -74,6 +78,7 @@ module "workflow_vpc_ha_2x_13" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-13"
   terraform_version = local.tf_latest_minors["0.13"]
+  terratest_version = "tf-0.13.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -91,6 +96,7 @@ module "workflow_vpc_ha_2x_12" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-12"
   terraform_version = local.tf_latest_minors["0.12"]
+  terratest_version = "tf-0.12.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -108,6 +114,7 @@ module "workflow_vpc_ha_2x_11" {
   repo_name         = "terraform-aws-btlabz-vpc-ha-2x"
   repo_reference    = "release/terraform-11"
   terraform_version = local.tf_latest_minors["0.11"]
+  terratest_version = "tf-0.11.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
