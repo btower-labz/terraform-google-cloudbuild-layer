@@ -128,12 +128,33 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
+      id         = "aws-ecr"
+      name       = local.awscli_image
+      env        = local.shared_env
+      entrypoint = "bash"
+      args = ["-c",
+        "aws ecr-public get-login-password --region us-east-1 >/aws/ecr-login.txt"
+      ]
+      dynamic "volumes" {
+        for_each = local.shared_volumes
+        content {
+          name = volumes.value["name"]
+          path = volumes.value["path"]
+        }
+      }
+      wait_for = ["aws-who"]
+      timeout  = "${local.default_timeout}s"
+    }
+
+
+    step {
       id         = "docker-login"
       name       = "gcr.io/cloud-builders/docker"
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v7k3l7g9"
+        # TODO: hardcoded registry
+        "cat /aws/ecr-login.txt | docker login --username AWS --password-stdin public.ecr.aws/v7k3l7g9"
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
@@ -143,7 +164,7 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       timeout  = "${local.default_timeout}s"
-      wait_for = ["-"]
+      wait_for = ["aws-ecr"]
     }
 
     step {
@@ -152,6 +173,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
+        # TODO: hardcoded repo
         "docker build -t public.ecr.aws/v7k3l7g9/docker-cloudbuild-terratest:latest ."
       ]
       dynamic "volumes" {
@@ -162,7 +184,7 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       timeout  = "${local.docker_build_timeout}s"
-      wait_for = ["-"]
+      wait_for = ["docker-login"]
     }
 
     step {
@@ -171,6 +193,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
+        # TODO: hardcoded repo
         "docker push public.ecr.aws/v7k3l7g9/docker-cloudbuild-terratest:latest"
       ]
       dynamic "volumes" {
@@ -181,7 +204,7 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       timeout  = "${local.docker_push_timeout}s"
-      wait_for = ["-"]
+      wait_for = ["docker-build"]
     }
 
     step {
@@ -190,6 +213,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
+        # TODO: hardcoded registry
         "docker logout public.ecr.aws/v7k3l7g9"
       ]
       dynamic "volumes" {
@@ -200,7 +224,7 @@ resource "google_cloudbuild_trigger" "main" {
         }
       }
       timeout  = "${local.default_timeout}s"
-      wait_for = ["-"]
+      wait_for = ["docker-push"]
     }
   }
 }
