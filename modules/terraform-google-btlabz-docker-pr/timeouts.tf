@@ -1,7 +1,7 @@
 // Calculate timeouts
 locals {
   default_timeout      = 60
-  default_count        = 6
+  default_count        = 7
   docker_build_timeout = 600
   docker_push_timeout  = 600
   # TODO: #3 Actually, build timeout may be less than a summ of step timeouts dure to parallelizm.

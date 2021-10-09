@@ -4,12 +4,13 @@ module "workflow_docker_cloudbuild_terratest_dev" {
   repo_owner        = "btower-labz"
   repo_name         = "docker-cloudbuild-terratest"
   repo_reference    = "master"
-  terraform_version = "latest"
+  docker_registry   = "public.ecr.aws/v7k3l7g9"
+  docker_repository = "docker-cloudbuild-terratest"
+  docker_tag        = "latest"
   workflows = [
     "docker_branch",
   ]
 }
-
 
 #module "workflow_vpc_ha_3x_11" {
 #  source            = "./modules/terraform-google-btlabz-tf-workflow"

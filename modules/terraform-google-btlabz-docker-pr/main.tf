@@ -153,8 +153,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        # TODO: hardcoded registry
-        "cat /aws/ecr-login.txt | docker login --username AWS --password-stdin public.ecr.aws/v7k3l7g9"
+        "cat /aws/ecr-login.txt | docker login --username AWS --password-stdin ${var.docker_registry}"
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
@@ -173,8 +172,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        # TODO: hardcoded repo
-        "docker build -t public.ecr.aws/v7k3l7g9/docker-cloudbuild-terratest:latest ."
+        "docker build -t ${var.docker_registry}/{var.doker_repository}:${var.docker_tag} ."
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
@@ -193,8 +191,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        # TODO: hardcoded repo
-        "docker push public.ecr.aws/v7k3l7g9/docker-cloudbuild-terratest:latest"
+        "docker push ${var.docker_registry}/{var.doker_repository}:${var.docker_tag}"
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
@@ -213,8 +210,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        # TODO: hardcoded registry
-        "docker logout public.ecr.aws/v7k3l7g9"
+        "docker logout ${var.docker_registry}"
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes

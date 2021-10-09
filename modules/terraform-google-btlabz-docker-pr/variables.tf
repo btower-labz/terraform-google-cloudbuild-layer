@@ -95,6 +95,22 @@ variable "workflow_type" {
   #}
 }
 
+variable "docker_registry" {
+  type        = string
+  description = "Docker registry to push image"
+}
+
+variable "docker_repository" {
+  type        = string
+  description = "Docker repository to push"
+}
+
+variable "docker_tag" {
+  type        = string
+  description = "Docker tag to use while pushing"
+  default     = "latest"
+}
+
 variable "disabled" {
   type        = bool
   description = "Disable the trigger"

@@ -47,6 +47,22 @@ variable "terratest_regions" {
   #}
 }
 
+variable "docker_registry" {
+  type = string
+  description = "Docker registry to push image"
+}
+
+variable "docker_repository" {
+  type = string
+  description = "Docker repository to push"
+}
+
+variable "docker_tag" {
+  type = string
+  description = "Docker image tag"
+  default = "latest"
+}
+
 variable "workflows" {
   type        = list(any)
   description = "Workflows to create"
