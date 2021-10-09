@@ -147,7 +147,7 @@ resource "google_cloudbuild_trigger" "main" {
     }
 
     step {
-      id         = "docker-login"
+      id         = "docker-build"
       name       = "gcr.io/cloud-builders/docker"
       env        = local.shared_env
       entrypoint = "bash"
