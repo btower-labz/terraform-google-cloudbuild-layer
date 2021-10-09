@@ -39,7 +39,7 @@ module "workflow_pub_sn_15" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
-  repo_reference    = "release/terraform-15"
+  repo_reference    = "release/terraform-0.15.x"
   terraform_version = local.tf_latest_minors["0.15"]
   terratest_version = "tf-0.15.x-latest"
   workflows = [
@@ -57,7 +57,7 @@ module "workflow_pub_sn_14" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
-  repo_reference    = "release/terraform-14"
+  repo_reference    = "release/terraform-0.14.x"
   terraform_version = local.tf_latest_minors["0.14"]
   terratest_version = "tf-0.14.x-latest"
   workflows = [
@@ -75,7 +75,7 @@ module "workflow_pub_sn_13" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
-  repo_reference    = "release/terraform-13"
+  repo_reference    = "release/terraform-0.13.x"
   terraform_version = local.tf_latest_minors["0.13"]
   terratest_version = "tf-0.13.x-latest"
   workflows = [
@@ -93,7 +93,7 @@ module "workflow_pub_sn_12" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
-  repo_reference    = "release/terraform-12"
+  repo_reference    = "release/terraform-0.12.x"
   terraform_version = local.tf_latest_minors["0.12"]
   terratest_version = "tf-0.12.x-latest"
   workflows = [
@@ -111,7 +111,7 @@ module "workflow_pub_sn_11" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
-  repo_reference    = "release/terraform-11"
+  repo_reference    = "release/terraform-0.11.x"
   terraform_version = local.tf_latest_minors["0.11"]
   terratest_version = "tf-0.11.x-latest"
   workflows = [
