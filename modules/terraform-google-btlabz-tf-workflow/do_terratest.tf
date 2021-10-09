@@ -7,6 +7,8 @@ module "terratest_pull_request" {
   repo_reference    = var.repo_reference
   terraform_version = var.terraform_version
   terratest_regions = var.terratest_regions
+  terratest_version  = var.terratest_version
+  workflow_type     = "PR"
 }
 
 module "terratest_branch" {
@@ -18,5 +20,6 @@ module "terratest_branch" {
   repo_reference    = var.repo_reference
   terraform_version = var.terraform_version
   terratest_regions = var.terratest_regions
+  terratest_version  = var.terratest_version
   workflow_type     = "BRANCH"
 }

@@ -47,6 +47,12 @@ variable "terratest_regions" {
   #}
 }
 
+variable "terratest_version" {
+  type        = string
+  description = "Version of terraform for linting"
+  default     = "latest"
+}
+
 variable "workflows" {
   type        = list(any)
   description = "Workflows to create"

@@ -55,7 +55,7 @@ variable "awscli_version" {
 variable "terratest_repo" {
   type        = string
   description = "TerraTest repository. It should contain terraform and golang."
-  default     = "btowerlabz/docker-cloudbuild-terratest"
+  default     = "public.ecr.aws/v7k3l7g9/docker-cloudbuild-terratest"
 }
 
 variable "terratest_version" {
