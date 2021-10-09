@@ -21,7 +21,7 @@ module "workflow_pub_sn_1_0_x" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-1.0.x"
-  terraform_version = "1.0.8"
+  terraform_version = local.tf_latest_minors["1.0"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -38,7 +38,7 @@ module "workflow_pub_sn_15" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-15"
-  terraform_version = "0.15.5"
+  terraform_version = local.tf_latest_minors["0.15"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -55,7 +55,7 @@ module "workflow_pub_sn_14" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-14"
-  terraform_version = "0.14.11"
+  terraform_version = local.tf_latest_minors["0.14"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -72,7 +72,7 @@ module "workflow_pub_sn_13" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-13"
-  terraform_version = "0.13.7"
+  terraform_version = local.tf_latest_minors["0.13"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -89,7 +89,7 @@ module "workflow_pub_sn_12" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-12"
-  terraform_version = "0.12.29"
+  terraform_version = local.tf_latest_minors["0.12"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
@@ -106,7 +106,7 @@ module "workflow_pub_sn_11" {
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-pub-sn"
   repo_reference    = "release/terraform-11"
-  terraform_version = "0.11.14"
+  terraform_version = local.tf_latest_minors["0.11"]
   workflows = [
     "lint_pull_request",
     "lint_branch",
