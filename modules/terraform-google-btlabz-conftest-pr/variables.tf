@@ -22,7 +22,7 @@ variable "terraform_version" {
 }
 
 variable "ignored_files" {
-  type        = list
+  type        = list(any)
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",
@@ -62,10 +62,10 @@ variable "workflow_type" {
   type        = string
   description = "Workflow type: PR, BRANCH, TAG"
   default     = "PR"
-  validation {
-    condition     = length(regexall("^PR|BRANCH|TAG$", var.workflow_type)) > 0
-    error_message = "Workflow type should be PR, BRANCH or TAG."
-  }
+  #validation {
+  #  condition     = length(regexall("^PR|BRANCH|TAG$", var.workflow_type)) > 0
+  #  error_message = "Workflow type should be PR, BRANCH or TAG."
+  #}
 }
 
 variable "disabled" {

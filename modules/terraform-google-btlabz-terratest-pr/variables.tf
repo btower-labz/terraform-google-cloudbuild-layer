@@ -71,7 +71,7 @@ variable "gcp_secret_name" {
 }
 
 variable "ignored_files" {
-  type        = list
+  type        = list(any)
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",
@@ -114,14 +114,14 @@ variable "workflow_type" {
   type        = string
   description = "Workflow type: PR, BRANCH, TAG"
   default     = "PR"
-  validation {
-    condition     = length(regexall("^PR|BRANCH|TAG$", var.workflow_type)) > 0
-    error_message = "Workflow type should be PR, BRANCH or TAG."
-  }
+  #validation {
+  #  condition     = length(regexall("^PR|BRANCH|TAG$", var.workflow_type)) > 0
+  #  error_message = "Workflow type should be PR, BRANCH or TAG."
+  #}
 }
 
 variable "additional_terraform_versions" {
-  type        = list
+  type        = list(any)
   description = "Additional terraform versions to test with"
   default     = ["latest"]
 }
@@ -130,30 +130,30 @@ variable "golang_max_proc" {
   type        = number
   description = "Golang concurrency for TerraTest"
   default     = 1
-  validation {
-    condition     = var.golang_max_proc > 0
-    error_message = "Golang concurrency should be positive integer."
-  }
+  #validation {
+  #  condition     = var.golang_max_proc > 0
+  #  error_message = "Golang concurrency should be positive integer."
+  #}
 }
 
 variable "terratest_regions" {
-  type        = list
+  type        = list(any)
   description = "AWS Regions to TerraTest"
   default     = ["us-east-1"]
-  validation {
-    condition     = length(var.terratest_regions) > 0
-    error_message = "At least one region should be specified."
-  }
+  #validation {
+  #  condition     = length(var.terratest_regions) > 0
+  #  error_message = "At least one region should be specified."
+  #}
 }
 
 variable "terratest_timeout" {
   type        = number
   description = "TerraTest timeout value in seconds"
   default     = 600
-  validation {
-    condition     = var.terratest_timeout >= 60
-    error_message = "Terraform timeout should be positive value, more than 60 seconds."
-  }
+  #validation {
+  #  condition     = var.terratest_timeout >= 60
+  #  error_message = "Terraform timeout should be positive value, more than 60 seconds."
+  #}
 }
 
 variable "disabled" {
