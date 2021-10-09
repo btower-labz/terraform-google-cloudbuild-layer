@@ -22,7 +22,7 @@ variable "terraform_version" {
 }
 
 variable "ignored_files" {
-  type        = list
+  type        = list(any)
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",

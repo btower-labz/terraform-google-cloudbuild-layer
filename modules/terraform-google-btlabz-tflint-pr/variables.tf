@@ -22,7 +22,7 @@ variable "terraform_version" {
 }
 
 variable "ignored_files" {
-  type        = list
+  type        = list(any)
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",
@@ -69,7 +69,7 @@ variable "workflow_type" {
 }
 
 variable "additional_terraform_versions" {
-  type        = list
+  type        = list(any)
   description = "Additional terraform versions to test with"
   default     = []
 }

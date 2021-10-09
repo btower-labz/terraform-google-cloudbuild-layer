@@ -38,7 +38,7 @@ variable "terraform_version" {
 }
 
 variable "terratest_regions" {
-  type        = list
+  type        = list(any)
   description = "Regions to test with terratest"
   default     = ["us-east-1"]
   validation {
@@ -48,7 +48,7 @@ variable "terratest_regions" {
 }
 
 variable "workflows" {
-  type        = list
+  type        = list(any)
   description = "Workflows to create"
   default     = []
 }

@@ -1,5 +1,5 @@
-terraform {
-  experiments = [
-    variable_validation
-  ]
-}
+#terraform {
+#  experiments = [
+#    variable_validation
+#  ]
+#}

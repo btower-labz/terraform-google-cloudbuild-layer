@@ -71,7 +71,7 @@ variable "gcp_secret_name" {
 }
 
 variable "ignored_files" {
-  type        = list
+  type        = list(any)
   description = "Files to ignore on PR update"
   default = [
     "**/*.md",
@@ -121,7 +121,7 @@ variable "workflow_type" {
 }
 
 variable "additional_terraform_versions" {
-  type        = list
+  type        = list(any)
   description = "Additional terraform versions to test with"
   default     = ["latest"]
 }
@@ -137,7 +137,7 @@ variable "golang_max_proc" {
 }
 
 variable "terratest_regions" {
-  type        = list
+  type        = list(any)
   description = "AWS Regions to TerraTest"
   default     = ["us-east-1"]
   validation {
