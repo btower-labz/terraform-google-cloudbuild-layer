@@ -75,7 +75,8 @@ module "workflow_vpc_base_13" {
   project           = data.google_project.project.project_id
   repo_owner        = "btower-labz"
   repo_name         = "terraform-aws-btlabz-vpc-base"
-  repo_reference    = "release/terraform-0.13.x"
+  # repo_reference    = "release/terraform-0.13.x"
+  repo_reference = "master"
   terraform_version = local.tf_latest_minors["0.13"]
   terratest_version = "tf-0.13.x-latest"
   workflows = [
