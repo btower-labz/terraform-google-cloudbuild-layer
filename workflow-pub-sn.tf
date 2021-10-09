@@ -15,6 +15,74 @@ module "workflow_pub_sn_dev" {
   ]
 }
 
+module "workflow_pub_sn_1_0_x" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_reference    = "release/terraform-1.0.x"
+  terraform_version = "1.0.8"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+module "workflow_pub_sn_15" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_reference    = "release/terraform-15"
+  terraform_version = "0.15.5"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+module "workflow_pub_sn_14" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_reference    = "release/terraform-14"
+  terraform_version = "0.14.11"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+module "workflow_pub_sn_13" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-pub-sn"
+  repo_reference    = "release/terraform-13"
+  terraform_version = "0.13.7"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
 module "workflow_pub_sn_12" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id

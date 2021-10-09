@@ -183,11 +183,11 @@ resource "google_cloudbuild_trigger" "main" {
       content {
         id   = "terratest-go-test-${step.value}"
         name = local.terratest_image
-        env = concat(local.shared_env, list(
+        env = concat(local.shared_env, tolist([
           "GOMAXPROCS=${var.golang_max_proc}",
           "GO111MODULE=on",
           "TERRATEST_REGION=${step.value}",
-        ))
+        ]))
         dir        = ".terratest"
         entrypoint = "/bin/bash"
         args       = ["-e", "-o", "pipefail", "-c", "go test -v -timeout 30m -count=${var.golang_max_proc} 2>&1 | tee /.terratest/test-report-${step.value}.log"]

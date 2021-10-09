@@ -15,6 +15,78 @@ module "workflow_nat_base_dev" {
   ]
 }
 
+module "workflow_nat_base_1_0_x" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-nat-base"
+  repo_reference    = "release/terraform-1.0.x"
+  terraform_version = "1.0.x"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+
+module "workflow_nat_base_15" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-nat-base"
+  repo_reference    = "release/terraform-15"
+  terraform_version = "0.15.0"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+
+module "workflow_nat_base_14" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-nat-base"
+  repo_reference    = "release/terraform-14"
+  terraform_version = "0.14.0"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+
+module "workflow_nat_base_13" {
+  source            = "./modules/terraform-google-btlabz-tf-workflow"
+  project           = data.google_project.project.project_id
+  repo_owner        = "btower-labz"
+  repo_name         = "terraform-aws-btlabz-nat-base"
+  repo_reference    = "release/terraform-13"
+  terraform_version = "0.13.0"
+  workflows = [
+    "lint_pull_request",
+    "lint_branch",
+    "conftest_pull_request",
+    "conftest_branch",
+    "terratest_pull_request",
+    "terratest_branch",
+  ]
+}
+
+
 module "workflow_nat_base_12" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
