@@ -172,7 +172,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        "docker build -t ${var.docker_registry}/{var.doker_repository}:${var.docker_tag} ."
+        "docker build -t ${var.docker_registry}/${var.doker_repository}:${var.docker_tag} ."
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
@@ -191,7 +191,7 @@ resource "google_cloudbuild_trigger" "main" {
       env        = local.shared_env
       entrypoint = "bash"
       args = ["-c",
-        "docker push ${var.docker_registry}/{var.doker_repository}:${var.docker_tag}"
+        "docker push ${var.docker_registry}/${var.doker_repository}:${var.docker_tag}"
       ]
       dynamic "volumes" {
         for_each = local.shared_volumes
