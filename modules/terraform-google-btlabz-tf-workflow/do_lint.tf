@@ -6,6 +6,7 @@ module "lint_pull_request" {
   repo_name         = var.repo_name
   repo_reference    = var.repo_reference
   terraform_version = var.terraform_version
+  workflow_type     = "PR"
 }
 
 module "lint_branch" {

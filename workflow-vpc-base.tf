@@ -23,7 +23,7 @@ module "workflow_vpc_base_1_0_x" {
   repo_name         = "terraform-aws-btlabz-vpc-base"
   repo_reference    = "release/terraform-1.0.x"
   terraform_version = local.tf_latest_minors["1.0"]
-  terratest_version = "tf-0.1.x-latest"
+  terratest_version = "tf-1.0.x-latest"
   workflows = [
     "lint_pull_request",
     "lint_branch",
