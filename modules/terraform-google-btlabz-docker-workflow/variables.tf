@@ -48,19 +48,19 @@ variable "terratest_regions" {
 }
 
 variable "docker_registry" {
-  type = string
+  type        = string
   description = "Docker registry to push image"
 }
 
 variable "docker_repository" {
-  type = string
+  type        = string
   description = "Docker repository to push"
 }
 
 variable "docker_tag" {
-  type = string
+  type        = string
   description = "Docker image tag"
-  default = "latest"
+  default     = "latest"
 }
 
 variable "workflows" {
