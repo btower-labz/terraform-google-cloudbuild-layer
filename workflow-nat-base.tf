@@ -34,7 +34,6 @@ module "workflow_nat_base_1_0_x" {
   ]
 }
 
-
 module "workflow_nat_base_15" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
@@ -52,7 +51,6 @@ module "workflow_nat_base_15" {
     "terratest_branch",
   ]
 }
-
 
 module "workflow_nat_base_14" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
@@ -72,7 +70,6 @@ module "workflow_nat_base_14" {
   ]
 }
 
-
 module "workflow_nat_base_13" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
@@ -90,7 +87,6 @@ module "workflow_nat_base_13" {
     "terratest_branch",
   ]
 }
-
 
 module "workflow_nat_base_12" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"

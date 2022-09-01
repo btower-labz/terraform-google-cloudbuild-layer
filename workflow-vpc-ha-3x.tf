@@ -52,7 +52,6 @@ module "workflow_vpc_ha_3x_15" {
   ]
 }
 
-
 module "workflow_vpc_ha_3x_14" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
   project           = data.google_project.project.project_id
@@ -88,7 +87,6 @@ module "workflow_vpc_ha_3x_13" {
     "terratest_branch",
   ]
 }
-
 
 module "workflow_vpc_ha_3x_12" {
   source            = "./modules/terraform-google-btlabz-tf-workflow"
