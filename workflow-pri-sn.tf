@@ -119,4 +119,3 @@ module "workflow_pri_sn_11" {
     "lint_branch",
   ]
 }
-
